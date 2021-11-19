@@ -1,0 +1,30 @@
+﻿@model ecom.Models.Category
+
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <h2 class="display-4 text-center">@Model.Name</h2>
+        <hr />
+    </div>
+    @foreach (var product in @Model.Products)
+    {
+        <div class="col-sm-12 col-md-4 mb-3">
+            <div class="card">
+                <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id">
+                    <img src="@product.ImageUrl" class="card-img-top img-fluid" />
+                </a>
+                <div class="card-body">
+                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id">
+                        <h5 class="card-title">@product.Name</h5>
+                    </a>
+                    <p class="card-text">
+                        @product.Description
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

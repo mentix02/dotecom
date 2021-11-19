@@ -1,0 +1,46 @@
+﻿@model ecom.Models.Product
+
+@{
+    ViewData["Title"] = @Html.DisplayFor(model => model.Name);
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-4">
+        <div class="card">
+            <img src="@Model.ImageUrl" class="card-img-top" />
+            <div class="card-body">
+                <a asp-controller="Product" asp-action="Detail" asp-route-id="@Model.Id">
+                    <h3 class="card-title">@Model.Name</h3>
+                </a>
+                <p class="card-text">
+                    @Model.Description
+                </p>
+            </div>
+            <div class="card-footer">
+                <a asp-controller="Category" asp-action="Detail" asp-route-id="@Model.CategoryId">
+                    @Model.Category.Name
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-8">
+        <div class="row">
+            @foreach (var variant in Model.Variants)
+            {
+                <div class="col-sm-12 col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@variant.Name</h5>
+                            <p class="card-text">Rs. @variant.Price</p>
+                        </div>
+                        <div class="card-footer">
+                            <a asp-controller="Cart" asp-action="Add" asp-route-id="@variant.Id" class="btn btn-success">
+                                <i class="bi bi-cart-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@model ecom.Models.Cart
+
+@{
+    ViewData["Title"] = "Place Order";
+}
+
+@if (Model.Items.Any())
+{
+    <h1 class="display-6 text-center">Place Order</h1>
+    <form class="row" asp-controller="Order" asp-action="Add" method="post">
+
+        <div class="col-sm-12 col-md-4 offset-md-4 mb-3">
+            <label for="Street" class="form-label">Street</label>
+            <input required class="form-control" id="Street" name="Street" type="text" />
+        </div>
+
+        <div class="col-sm-12 col-md-4 offset-md-4 mb-3">
+            <label for="City" class="form-label">City</label>
+            <input required class="form-control" id="City" name="City" type="text" />
+        </div>
+
+        <div class="col-sm-12 col-md-4 offset-md-4 mb-3">
+            <label for="PostalCode" class="form-label">Postal Code</label>
+            <input required class="form-control" id="PostalCode" name="PostalCode" type="number" />
+        </div>
+
+        <div class="col-sm-12 col-md-4 offset-md-4 mb-3">
+            <select name="Country" class="form-select" aria-label="Default select example">
+                <option value="0" selected>India</option>
+                <option value="1">Canada</option>
+                <option value="2">Sweden</option>
+                <option value="3">Austria</option>
+                <option value="4">Denmark</option>
+                <option value="5">Malaysia</option>
+                <option value="6">Malta</option>
+                <option value="7">Mauritius</option>
+                <option value="8">Norway</option>
+            </select>
+        </div>
+
+        <div class="col-sm-12 col-md-4 offset-md-4 mb-3"><hr /></div>
+
+        <div class="col-sm-12 col-md-2 offset-md-5">
+            <div class="d-grid gap-2">
+                <button class="btn btn-outline-primary btn-block" type="submit">Place Order</button>
+            </div>
+        </div>
+
+    </form>
+}
+else
+{
+    <h3 class="text-center">No items in your cart. Why not <a asp-controller="Home" asp-action="Index">look around?</a></h3>
+}

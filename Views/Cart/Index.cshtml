@@ -1,0 +1,55 @@
+﻿@model ecom.Models.Cart
+
+@{
+    ViewData["Title"] = "My Cart";
+}
+
+@if (Model.Items.Any())
+{
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Variant</th>
+                <th scope="col">Price</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cartItem in @Model.Items)
+            {
+                <tr>
+                    <td scope="row">@cartItem.ProductVariant.Product.Name</td>
+                    <td>@cartItem.ProductVariant.Name</td>
+                    <td>Rs. @cartItem.ProductVariant.Price</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Cart Item actions">
+                            <a asp-controller="Cart" asp-action="Remove" asp-route-id="@cartItem.Id" class="btn btn-outline-danger">
+                                <i class="bi bi-cart-dash"></i>
+                            </a>
+                            <a asp-controller="Cart" asp-action="Add" asp-route-id="@cartItem.ProductVariantId" class="btn btn-outline-success">
+                                <i class="bi bi-cart-plus"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td></td>
+                <th>Total cost</th>
+                <th>Rs. @ViewData["TotalCost"]</th>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-sm-12 col-md-2 offset-md-5">
+            <div class="d-grid gap-2">
+                <a asp-controller="Order" asp-action="Add" class="btn btn-outline-primary btn-block">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h3 class="text-center">No items in your cart. Why not <a asp-controller="Home" asp-action="Index">look around</a>?</h3>
+}

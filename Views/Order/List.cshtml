@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ecom.Models.Order>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<h1 class="display-6 text-center">My Orders</h1>
+
+<div class="row">
+    @foreach (var order in Model)
+    {
+        <div class="col-sm-12 col-md-6 offset-md-3 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    Ref # @order.Id
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <ul>
+                            @foreach (var orderItem in order.OrderItems)
+                            {
+                                <li>
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@orderItem.ProductVariant.ProductId">
+                                        @orderItem.ProductVariant.Product.Name</a> (<small>@orderItem.ProductVariant.Name)</small>
+                                </li>
+                            }
+                        </ul>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    Placed on @Html.DisplayFor(model => order.Timestamp)
+                </div>
+            </div>
+        </div>
+    }
+</div>
